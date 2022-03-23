@@ -9,6 +9,10 @@ app.use(cors());
 app.use(express.json());
 app.use('/books', books2)
 
+app.get('/', (req, res) => {
+  res.send('Hello world!')
+})
+
 dbo.connectToServer(function (err) {
     if (err) {
       console.error(err);
@@ -16,7 +20,7 @@ dbo.connectToServer(function (err) {
     }
   
     // start the Express server
-    app.listen(port, () => {
+    app.listen(process.env.PORT || port, () => {
       console.log(`Server is running on port: ${port}`);
     });
   });
