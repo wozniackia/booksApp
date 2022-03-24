@@ -90,7 +90,7 @@ router.post('/addBook', async (req, res) => {
             release_date: Number(published),
             average: 0.0,
             reviews: {},
-            cover: images[req.query.image]
+            cover: images[0]
           }
           const result = dbConnect.collection("bookList").insertOne(newBook);
           res.status(204).send();
@@ -127,10 +127,7 @@ router.post('/addReview', async (req, res) => {
 })
 
 function asyncPush(a, val, cb) {
-  setTimeout(function () { a.push(val); }, 0);
-  if (a.length > 3) {
-    cb();
-  }
+  setTimeout(function () { a.push(val); cb();}, 0);
 }
 
 module.exports = router;
