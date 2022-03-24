@@ -1,5 +1,6 @@
 const { Double } = require('bson');
 const express = require('express');
+const axios = require('axios')
 const ObjectId = require('mongodb').ObjectId;
 
 const router = express.Router();
@@ -48,19 +49,47 @@ router.get('/', async (req, res) => {
 
 router.post('/addBook', async (req, res) => {
   const dbConnect = dbo.getDb();
-  if (req.query.name && req.query.author && req.query.release) {
-    let newBook = {
-      name: req.query.name,
-      author: req.query.author,
-      release_date: Number(req.query.release),
-      average: 0.0,
-      reviews: {}
-    }
-    const result = await dbConnect.collection("bookList").insertOne(newBook);
-    res.status(204).send();
-  } else {
-    res.status(400).send();
-  }
+
+  axios.get(`https://openlibrary.org/search.json?q=${req.query.name}`)
+    .then(function (response) {
+      let author = response.data.docs[0]["author_name"]
+      let title = response.data.docs[0]["title"]
+      let published = response.data.docs[0]["first_publish_year"]
+      let data = response.data.docs[0]["edition_key"]
+      let size = response.data.docs[0]["edition_key"].length
+      let images = []
+      let p = new Promise(function (resolve, reject) {
+            for(let i = 0; i < size; i++) {
+                axios.get(`https://covers.openlibrary.org/b/olid/${data[i]}-L.jpg`)
+                  .then(function (response) {
+                    if(response.headers["content-type"] == 'image/jpeg') {
+                      asyncPush(images, `https://covers.openlibrary.org/b/olid/${data[i]}-L.jpg`, resolve)
+                    }
+                  })
+            }
+      })
+      p.then(function () {
+          console.log(author)
+          console.log(title)
+          console.log(published)
+          console.log(images)
+
+          if (req.query.name) {
+            let newBook = {
+              name: title,
+              author: author,
+              release_date: Number(published),
+              average: 0.0,
+              reviews: {},
+              cover: images[req.query.image]
+            }
+            const result = dbConnect.collection("bookList").insertOne(newBook);
+            res.status(204).send();
+          } else {
+            res.status(400).send();
+          }
+      })
+    });
 })
 
 router.post('/addReview', async (req, res) => {
@@ -87,5 +116,12 @@ router.post('/addReview', async (req, res) => {
     res.status(400).send();
   }
 })
+
+function asyncPush(a, val, cb) {
+  setTimeout(function() { a.push(val); }, 0);
+  if(a.length > 4) {
+    cb();
+  }
+}
 
 module.exports = router;
