@@ -33,6 +33,14 @@ router.get('/', async (req, res) => {
       .toArray(function (err, result) {
         res.json(result);
       });
+  } else if (req.query.items) {
+    dbConnect
+      .collection('bookList')
+      .find({})
+      .limit(Number(req.query.items))
+      .toArray(function (err, result) {
+        res.json(result);
+      });
   } else {
     dbConnect
       .collection('bookList')
@@ -49,7 +57,6 @@ router.get('/', async (req, res) => {
 
 router.post('/addBook', async (req, res) => {
   const dbConnect = dbo.getDb();
-
   axios.get(`https://openlibrary.org/search.json?q=${req.query.name}`)
     .then(function (response) {
       let author = response.data.docs[0]["author_name"]
@@ -58,36 +65,38 @@ router.post('/addBook', async (req, res) => {
       let data = response.data.docs[0]["edition_key"]
       let size = response.data.docs[0]["edition_key"].length
       let images = []
+      let found = response.data.numFound
       let p = new Promise(function (resolve, reject) {
-            for(let i = 0; i < size; i++) {
-                axios.get(`https://covers.openlibrary.org/b/olid/${data[i]}-L.jpg`)
-                  .then(function (response) {
-                    if(response.headers["content-type"] == 'image/jpeg') {
-                      asyncPush(images, `https://covers.openlibrary.org/b/olid/${data[i]}-L.jpg`, resolve)
-                    }
-                  })
-            }
+        for (let i = 0; i < size; i++) {
+          axios.get(`https://covers.openlibrary.org/b/olid/${data[i]}-L.jpg`)
+            .then(function (response) {
+              if (response.headers["content-type"] == 'image/jpeg') {
+                asyncPush(images, `https://covers.openlibrary.org/b/olid/${data[i]}-L.jpg`, resolve)
+              }
+            })
+        }
       })
       p.then(function () {
-          console.log(author)
-          console.log(title)
-          console.log(published)
-          console.log(images)
+        console.log(author)
+        console.log(title)
+        console.log(published)
+        console.log(images)
+        console.log(found)
 
-          if (req.query.name) {
-            let newBook = {
-              name: title,
-              author: author,
-              release_date: Number(published),
-              average: 0.0,
-              reviews: {},
-              cover: images[req.query.image]
-            }
-            const result = dbConnect.collection("bookList").insertOne(newBook);
-            res.status(204).send();
-          } else {
-            res.status(400).send();
+        if (found > 0) {
+          let newBook = {
+            name: title,
+            author: author,
+            release_date: Number(published),
+            average: 0.0,
+            reviews: {},
+            cover: images[req.query.image]
           }
+          const result = dbConnect.collection("bookList").insertOne(newBook);
+          res.status(204).send();
+        } else {
+          res.status(400).send();
+        }
       })
     });
 })
@@ -105,11 +114,11 @@ router.post('/addReview', async (req, res) => {
     for (let i = 1; i <= Object.keys(reviews).length; i++) {
       sum += reviews[i]
     }
-    oldResult.average = Math.floor(sum / Object.keys(reviews).length * 100)/100
+    oldResult.average = Math.floor(sum / Object.keys(reviews).length * 100) / 100
 
     const result = await dbConnect
       .collection("bookList")
-      .updateOne({ name: req.query.name }, { $set: { average: Number(Math.floor(sum / Object.keys(reviews).length * 100)/100), reviews: reviews } });
+      .updateOne({ name: req.query.name }, { $set: { average: Number(Math.floor(sum / Object.keys(reviews).length * 100) / 100), reviews: reviews } });
 
     res.status(204).send();
   } else {
@@ -118,8 +127,8 @@ router.post('/addReview', async (req, res) => {
 })
 
 function asyncPush(a, val, cb) {
-  setTimeout(function() { a.push(val); }, 0);
-  if(a.length > 4) {
+  setTimeout(function () { a.push(val); }, 0);
+  if (a.length > 3) {
     cb();
   }
 }
