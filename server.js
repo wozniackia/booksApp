@@ -22,6 +22,9 @@ app.get('/browse', (req, res) => {
 app.get('/add', (req, res) => {
   res.render('add')
 })
+app.get('/search', (req, res) => {
+  res.render('search')
+})
 
 dbo.connectToServer(function (err) {
     if (err) {
