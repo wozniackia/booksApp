@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const port = 3000
-const books2 = require('./routers/books')
+const booksRouter = require('./routers/books')
 const dbo = require('./db/connection')
 
 app.set("view engine", "ejs");
@@ -11,7 +11,7 @@ app.set('views', __dirname + '/frontend/views');
 app.use(express.static(__dirname));
 app.use(cors());
 app.use(express.json());
-app.use('/books', books2)
+app.use('/books', booksRouter)
 
 app.get('/', (req, res) => {
   res.render('index')
