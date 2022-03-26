@@ -165,7 +165,7 @@ form {
   
   const formJSON = Object.fromEntries(data.entries());
   
-  // let uri = 'https://wozniacki-booksapp.herokuapp.combooks/addBook?name='+formJSON.name;
+  // let uri = 'https://wozniacki-booksapp.herokuapp.com/books/addBook?name='+formJSON.name;
   let uri = 'https://openlibrary.org/search.json?q='+formJSON.name;
     axios.post(uri)
     .then(function (response) {
@@ -187,7 +187,7 @@ function handleFormSubmit(event) {
   axios.get(uri)
     .then(function (response) {
       sendRequest = () => {
-        let uri2 = 'https://wozniacki-booksapp.herokuapp.combooks/addBook?name='+response.data.docs[0]["title"]
+        let uri2 = 'https://wozniacki-booksapp.herokuapp.com/books/addBook?name='+response.data.docs[0]["title"]
         axios.post(uri2)
           .then(function (response) {
             console.log('yupi')
