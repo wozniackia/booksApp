@@ -10,7 +10,16 @@ app.use(express.json());
 app.use('/books', books2)
 
 app.get('/', (req, res) => {
-  res.send('Hello world!')
+  res.sendFile(__dirname + '/frontend/pages/index.html')
+})
+app.get('/logo', (req, res) => {
+  res.sendFile(__dirname + '/frontend/resources/logo.svg')
+})
+app.get('/browse', (req, res) => {
+  res.sendFile(__dirname + '/frontend/pages/browse.html')
+})
+app.get('/add', (req, res) => {
+  res.sendFile(__dirname + '/frontend/pages/add-book.html')
 })
 
 dbo.connectToServer(function (err) {

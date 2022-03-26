@@ -102,11 +102,13 @@ router.post('/addBook', async (req, res) => {
 })
 
 router.post('/addReview', async (req, res) => {
+  console.log('tu')
   const dbConnect = dbo.getDb();
   if (req.query.review && req.query.name) {
     let oldResult = await dbConnect
       .collection("bookList")
       .findOne({ name: req.query.name });
+    console.log(oldResult)
     let reviews = oldResult.reviews
     reviews[Object.keys(reviews).length + 1] = Double(req.query.review)
 
