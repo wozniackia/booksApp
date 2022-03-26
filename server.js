@@ -5,21 +5,22 @@ const port = 3000
 const books2 = require('./routers/books')
 const dbo = require('./db/connection')
 
+app.set("view engine", "ejs");
+app.set('views', __dirname + '/frontend/views');
+
+app.use(express.static(__dirname));
 app.use(cors());
 app.use(express.json());
 app.use('/books', books2)
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/frontend/pages/index.html')
-})
-app.get('/logo', (req, res) => {
-  res.sendFile(__dirname + '/frontend/resources/logo.svg')
+  res.render('index')
 })
 app.get('/browse', (req, res) => {
-  res.sendFile(__dirname + '/frontend/pages/browse.html')
+  res.render('browse')
 })
 app.get('/add', (req, res) => {
-  res.sendFile(__dirname + '/frontend/pages/add-book.html')
+  res.render('add')
 })
 
 dbo.connectToServer(function (err) {
