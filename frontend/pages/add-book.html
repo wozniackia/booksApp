@@ -96,8 +96,8 @@ form {
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="https://wozniacki-booksapp.herokuapp.com//">
-          <img src="https://wozniacki-booksapp.herokuapp.com//logo" alt="" width="50" height="50">
+      <a class="navbar-brand" href="https://wozniacki-booksapp.herokuapp.com/">
+          <img src="https://wozniacki-booksapp.herokuapp.com/logo" alt="" width="50" height="50">
           BooksApp
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,13 +106,13 @@ form {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="https://wozniacki-booksapp.herokuapp.com//">Home</a>
+            <a class="nav-link" aria-current="page" href="https://wozniacki-booksapp.herokuapp.com/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://wozniacki-booksapp.herokuapp.com//browse">Browse books</a>
+            <a class="nav-link" href="https://wozniacki-booksapp.herokuapp.com/browse">Browse books</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="https://wozniacki-booksapp.herokuapp.com//add">Add books</a>
+            <a class="nav-link active" href="https://wozniacki-booksapp.herokuapp.com/add">Add books</a>
           </li>
         </ul>
         <form class="d-flex">
@@ -165,7 +165,7 @@ form {
   
   const formJSON = Object.fromEntries(data.entries());
   
-  // let uri = 'https://wozniacki-booksapp.herokuapp.com/books/addBook?name='+formJSON.name;
+  // let uri = 'https://wozniacki-booksapp.herokuapp.combooks/addBook?name='+formJSON.name;
   let uri = 'https://openlibrary.org/search.json?q='+formJSON.name;
     axios.post(uri)
     .then(function (response) {
@@ -187,7 +187,7 @@ function handleFormSubmit(event) {
   axios.get(uri)
     .then(function (response) {
       sendRequest = () => {
-        let uri2 = 'https://wozniacki-booksapp.herokuapp.com/books/addBook?name='+response.data.docs[0]["title"]
+        let uri2 = 'https://wozniacki-booksapp.herokuapp.combooks/addBook?name='+response.data.docs[0]["title"]
         axios.post(uri2)
           .then(function (response) {
             console.log('yupi')
