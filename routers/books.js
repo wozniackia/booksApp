@@ -55,6 +55,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/top', async (req, res) => {
+  const dbConnect = dbo.getDb();
+  dbConnect
+    .collection('bookList')
+    .find({})
+    .sort({ average: -1 })
+    .limit(3)
+    .toArray(function (err, result) {
+      res.json(result);
+    });
+});
+
 router.post('/addBook', async (req, res) => {
   const dbConnect = dbo.getDb();
   axios.get(`https://openlibrary.org/search.json?q=${req.query.name}`)
