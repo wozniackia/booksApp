@@ -15,7 +15,7 @@ function handleFormSubmit(event) {
     .then(function (response) {
       sendRequest = () => {
         console.log(String(response.data.docs[0]["title"]).replaceAll(' ','+'))
-        let uri2 = 'http://localhost:3000/books/addBook?name='+String(response.data.docs[0]["title"]).replaceAll(' ','+')
+        let uri2 = 'https://wozniacki-booksapp.herokuapp.com/books/addBook?name='+String(response.data.docs[0]["title"]).replaceAll(' ','+')
         console.log(uri2)
         axios.post(uri2)
           .then(function (response) {
