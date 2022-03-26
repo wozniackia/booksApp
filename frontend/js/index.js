@@ -7,7 +7,6 @@ const bookName3 = document.getElementById('bookName3')
 
 axios.get('./books/top')
   .then(function (response) {
-      console.log(response)
       bookName1.innerHTML = response.data[0].name
       bookCover1.src = response.data[0].cover
       bookName2.innerHTML = response.data[1].name

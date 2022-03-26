@@ -8,11 +8,15 @@ function handleFormSubmit(event) {
   document.getElementById('listDate').classList.add("placeholder");
   document.getElementById('buttonRequest').classList.add("placeholder");
   event.preventDefault();
+  console.log(bookName.value)
   let uri = 'https://openlibrary.org/search.json?q='+bookName.value;
+  console.log(uri)
   axios.get(uri)
     .then(function (response) {
       sendRequest = () => {
-        let uri2 = 'https://wozniacki-booksapp.herokuapp.com/books/addBook?name='+response.data.docs[0]["title"]
+        console.log(String(response.data.docs[0]["title"]).replaceAll(' ','+'))
+        let uri2 = 'http://localhost:3000/books/addBook?name='+String(response.data.docs[0]["title"]).replaceAll(' ','+')
+        console.log(uri2)
         axios.post(uri2)
           .then(function (response) {
             console.log('yupi')

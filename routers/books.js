@@ -69,9 +69,10 @@ router.get('/top', async (req, res) => {
 
 router.post('/addBook', async (req, res) => {
   const dbConnect = dbo.getDb();
+  console.log(req.query)
   axios.get(`https://openlibrary.org/search.json?q=${req.query.name}`)
     .then(function (response) {
-      let author = response.data.docs[0]["author_name"]
+      let author = response.data.docs[0]["author_name"][0]
       let title = response.data.docs[0]["title"]
       let published = response.data.docs[0]["first_publish_year"]
       let data = response.data.docs[0]["edition_key"]
@@ -87,6 +88,7 @@ router.post('/addBook', async (req, res) => {
               }
             })
         }
+        setTimeout(resolve, 5000)
       })
       p.then(function () {
         console.log(author)
@@ -94,6 +96,10 @@ router.post('/addBook', async (req, res) => {
         console.log(published)
         console.log(images)
         console.log(found)
+
+        if (images.length == 0) {
+          images.push('https://via.placeholder.com/420x500.jpg?text=No+cover+found')
+        }
 
         if (found > 0) {
           let newBook = {
