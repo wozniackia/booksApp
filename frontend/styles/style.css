@@ -10,6 +10,8 @@ nav {
 
 .top-right {
   color: white;
+  background-color: transparent;
+  border: none;
   position: absolute;
   top: 8px;
   right: 16px;
