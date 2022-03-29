@@ -1,9 +1,6 @@
-localStorage.setItem('darkmode', 'true');
-
 function darkMode() {
     let ifDark = localStorage.getItem('darkmode')
     if(ifDark == 'true') {
-        localStorage.setItem('darkmode', 'false')
         let dark = document.getElementsByClassName('bg-light')
         for(let i = 0; i < dark.length; i++) {
             dark[i].classList.add('bg-dark')
@@ -33,7 +30,6 @@ function darkMode() {
             dark[0].classList.remove('text-dark')
         }
     } else {
-        localStorage.setItem('darkmode', 'true');
         let dark = document.getElementsByClassName('bg-dark')
         for(let i = 0; i < dark.length; i++) {
             dark[i].classList.add('bg-light')
@@ -62,5 +58,13 @@ function darkMode() {
         while(dark.length > 0) {
             dark[0].classList.remove('text-light')
         }
+    }
+}
+
+function toggleLocalStorage() {
+    if(localStorage.getItem('darkmode') == 'true') {
+        localStorage.setItem('darkmode', 'false')
+    } else {
+        localStorage.setItem('darkmode', 'true')
     }
 }
