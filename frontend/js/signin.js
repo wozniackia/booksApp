@@ -12,9 +12,9 @@ const signin = function(event) {
         });
     document.getElementById('to-show').classList.remove('visually-hidden');
     document.getElementById('to-hide').classList.add('visually-hidden');
-    // setTimeout(() => {
-    //     window.location.href = "/";
-    // }, 500);
+    setTimeout(() => {
+        window.location.href = "/";
+    }, 500);
     event.preventDefault();
 };
 
