@@ -1,8 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const port = 3000
+const port = 4000
 const booksRouter = require('./routers/books')
+const authRouter = require('./routers/auth')
 const dbo = require('./db/connection')
 
 app.set("view engine", "ejs")
@@ -12,6 +13,7 @@ app.use(express.static(__dirname))
 app.use(cors())
 app.use(express.json())
 app.use('/books', booksRouter)
+app.use('/auth', authRouter)
 
 app.get('/', (req, res) => {
   res.render('index')
@@ -24,6 +26,12 @@ app.get('/add', (req, res) => {
 });
 app.get('/search', (req, res) => {
   res.render('search')
+});
+app.get('/signin', (req, res) => {
+  res.render('signin')
+});
+app.get('/signup', (req, res) => {
+  res.render('signup')
 });
 
 app.get('/*', (req, res) => {

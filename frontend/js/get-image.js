@@ -6,23 +6,18 @@ const getText = (id) => {
 const setImage = (id, book) => {
   const container = document.getElementById(id)
   let correctImages = []
-  let allData;
 
   let p = new Promise(function(resolve, reject) {
     axios.get(`https://openlibrary.org/search.json?q=${book}`)
     .then(function (response) {
-      let author = response.data.docs[0]["author_name"]
       let data = response.data.docs[0]["edition_key"]
-      allData = data
-      let size = response.data.docs[0]["edition_key"].length
-      let isFirst = true;
       for(let i = 0; i < size; i++) {
         axios.get(`https://covers.openlibrary.org/b/olid/${data[i]}-L.jpg`)
           .then(function (response) {
             //console.log(response.headers["content-type"])
             if(response.headers["content-type"] == 'image/jpeg') {
               // console.log(i)
-              asyncPush(correctImages, data[i], size, resolve)
+              asyncPush(correctImages, data[i], resolve)
             }
           })
       }
@@ -37,14 +32,11 @@ const setImage = (id, book) => {
     }
   });
 
-  function asyncPush(a, val, size, cb) {
+  function asyncPush(a, val, cb) {
     setTimeout(function() { a.push(val); }, 0);
     if(a.length > 4) {
       cb();
     }
-  }
-  function fastResolve(cb) {
-    cb();
   }
   function getArr() { return correctImages; }
 }

@@ -18,7 +18,7 @@ const bookCover9 = document.getElementById('bookCover9')
 const bookName9 = document.getElementById('bookName9')
 
 function fetchRatings(pageNum) {
-    axios.get('https://wozniacki-booksapp.herokuapp.com/books')
+    axios.get('/books')
         .then(function( response) {
             for(let i = (pageNum-1)*9; i < 9*pageNum; i++) {
                 if(response.data[i].average != 0) {
@@ -31,7 +31,7 @@ function fetchRatings(pageNum) {
 }
 
 function fetchCovers(pageNum) {
-  axios.get('https://wozniacki-booksapp.herokuapp.com/books?items='+(9*pageNum))
+  axios.get('/books?items='+(9*pageNum))
   .then(function (response) {
       bookName1.innerHTML = response.data[0+(pageNum-1)*9].name
       bookCover1.src = response.data[0+(pageNum-1)*9].cover

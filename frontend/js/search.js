@@ -7,7 +7,7 @@ const author = document.getElementById('bookAuthor')
 const rating = document.getElementById('bookRating')
 const log = () => {
     let query = bar.value
-    axios.get('https://wozniacki-booksapp.herokuapp.com/books?name='+query)
+    axios.get('/books?name='+query)
   .then(function (response) {
     if(response.data.name) {
         if(album[0].classList.contains('visually-hidden')) {

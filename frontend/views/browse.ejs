@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/frontend/styles/style.css">
     <link rel="stylesheet" href="/frontend/styles/album.css">
-    <link rel="stylesheet" href="/frontend/styles/rate.css">
     <title>BooksApp</title>
 </head>
 <body onload="darkMode()">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="navigation">
     <div class="container-fluid">
       <a class="navbar-brand" href="./">
           <img src="/frontend/resources/logo.svg" alt="" width="50" height="50">
@@ -37,6 +36,9 @@
           <li class="nav-item">
             <a class="nav-link" href="./search">Search</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./signin" id="signin-link">Sign in</a>
+          </li>
         </ul>
       </div>
       <button class="btn btn-light" onclick="toggleLocalStorage(); darkMode();"><i class="bi bi-lightbulb-fill"></i></button>
@@ -51,12 +53,10 @@
 
   <div class="album py-5 bg-light">
     <div class="container">
-
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div class="col">
           <div class="card shadow-sm">
-            <img id="bookCover1" src="" class="img-fluid"></img>
-
+            <img id="bookCover1" src="" class="img-fluid" alt="book cover"></img>
             <div class="card-body">
               <p class="card-text" id="bookName1"></p>
               <div class="d-flex justify-content-between align-items-center">
@@ -74,7 +74,7 @@
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <img id="bookCover2" src="" class="img-fluid"></img>
+            <img id="bookCover2" src="" class="img-fluid" alt="book cover"></img>
 
             <div class="card-body">
               <p class="card-text" id="bookName2"></p>
@@ -93,7 +93,7 @@
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <img id="bookCover3" src="" class="img-fluid"></img>
+            <img id="bookCover3" src="" class="img-fluid" alt="book cover"></img>
 
             <div class="card-body">
               <p class="card-text" id="bookName3"></p>
@@ -113,7 +113,7 @@
         
         <div class="col">
           <div class="card shadow-sm">
-            <img id="bookCover4" src="" class="img-fluid"></img>
+            <img id="bookCover4" src="" class="img-fluid" alt="book cover"></img>
 
             <div class="card-body">
               <p class="card-text" id="bookName4"></p>
@@ -132,7 +132,7 @@
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <img id="bookCover5" src="" class="img-fluid"></img>
+            <img id="bookCover5" src="" class="img-fluid" alt="book cover"></img>
 
             <div class="card-body">
               <p class="card-text" id="bookName5"></p>
@@ -151,7 +151,7 @@
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <img id="bookCover6" src="" class="img-fluid"></img>
+            <img id="bookCover6" src="" class="img-fluid" alt="book cover"></img>
 
             <div class="card-body">
               <p class="card-text" id="bookName6"></p>
@@ -171,7 +171,7 @@
         
         <div class="col">
           <div class="card shadow-sm">
-            <img id="bookCover7" src="" class="img-fluid"></img>
+            <img id="bookCover7" src="" class="img-fluid" alt="book cover"></img>
 
             <div class="card-body">
               <p class="card-text" id="bookName7"></p>
@@ -190,7 +190,7 @@
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <img id="bookCover8" src="" class="img-fluid"></img>
+            <img id="bookCover8" src="" class="img-fluid" alt="book cover"></img>
 
             <div class="card-body">
               <p class="card-text" id="bookName8"></p>
@@ -209,7 +209,7 @@
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <img id="bookCover9" src="" class="img-fluid"></img>
+            <img id="bookCover9" src="" class="img-fluid" alt="book cover"></img>
 
             <div class="card-body">
               <p class="card-text" id="bookName9"></p>
@@ -231,7 +231,7 @@
     </div>
   </div>
 
-  <nav>
+  <nav aria-label="pagination">
     <ul id="pagination" class="pagination justify-content-center">
     </ul>
   </nav>
@@ -244,5 +244,6 @@
   <script src="/frontend/js/give-rating.js"></script>
   <script src="/frontend/js/loading.js"></script>
   <script src="/frontend/js/dark-mode.js"></script>
+  <script src="/frontend/js/validate-login.js"></script>
 </body>
 </html>

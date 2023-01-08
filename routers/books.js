@@ -110,7 +110,7 @@ router.post('/addBook', async (req, res) => {
             reviews: {},
             cover: images[0]
           }
-          const result = dbConnect.collection("bookList").insertOne(newBook);
+          dbConnect.collection("bookList").insertOne(newBook);
           res.status(204).send();
         } else {
           res.status(400).send();
@@ -136,7 +136,7 @@ router.post('/addReview', async (req, res) => {
     }
     oldResult.average = Math.floor(sum / Object.keys(reviews).length * 100) / 100
 
-    const result = await dbConnect
+    await dbConnect
       .collection("bookList")
       .updateOne({ name: req.query.name }, { $set: { average: Number(Math.floor(sum / Object.keys(reviews).length * 100) / 100), reviews: reviews } });
 

@@ -9,7 +9,7 @@ function updateRating () {
   const five = document.getElementsByClassName('five-star')
 
   for(let i = 0; i < one.length; i++) {
-      axios.get('https://wozniacki-booksapp.herokuapp.com/books?name='+text[i].innerHTML)
+      axios.get('/books?name='+text[i].innerHTML)
           .then(function (response) {
               console.log(text[i].innerHTML)
               console.log(response.data.average)
@@ -55,13 +55,11 @@ function updateRating () {
 }
 
 let numberOfPages;
-axios.get('https://wozniacki-booksapp.herokuapp.com/books')
+axios.get('/books')
   .then(function (response) {
-    //pag.innerHTML = start
     for(let i = 0; i < Math.floor(response.data.length/9); i++) {
       pag.innerHTML += `<li class="page-item" onclick="fetchCovers(${i+1}); fetchRatings(${i+1}); setTimeout(updateRating,1000);"><a class="page-link" href="#">${i+1}</a></li>`
     }   
-    // pag.innerHTML += end
   })
   .catch(function (error) {
     console.log(error);

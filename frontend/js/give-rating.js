@@ -7,7 +7,7 @@ function getRating () {
     const five = document.getElementsByClassName('five-star')
 
     for(let i = 0; i < one.length; i++) {
-        axios.get('https://wozniacki-booksapp.herokuapp.com/books?name='+text[i].innerHTML)
+        axios.get('/books?name='+text[i].innerHTML)
             .then(function (response) {
                 if(response.data.average == 5) {
                     one[i].style.color = "gold";
