@@ -62,10 +62,10 @@ function giveRating () {
         }, false)
         one[i].addEventListener("mouseleave", getRating)
         one[i].addEventListener("click", function( event ) {
-            let uri = 'https://wozniacki-booksapp.herokuapp.com/books/addReview?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+')+'&review='+1;
+            let uri = '/books/addReview?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+')+'&review='+1;
             axios.post(uri)
                 .then(function (response) {
-                    axios.get('https://wozniacki-booksapp.herokuapp.com/books?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+'))
+                    axios.get('/books?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+'))
                         .then(function( response) {
                             document.getElementById(`bookRating${i+1}`).innerHTML = `Average: ${response.data.average}`
                             getRating()
@@ -82,10 +82,10 @@ function giveRating () {
         }, false)
         two[i].addEventListener("mouseleave", getRating)
         two[i].addEventListener("click", function( event ) {
-            let uri = 'https://wozniacki-booksapp.herokuapp.com/books/addReview?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+')+'&review='+2;
+            let uri = '/books/addReview?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+')+'&review='+2;
             axios.post(uri)
                 .then(function (response) {
-                    axios.get('https://wozniacki-booksapp.herokuapp.com/books?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+'))
+                    axios.get('/books?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+'))
                         .then(function( response) {
                             document.getElementById(`bookRating${i+1}`).innerHTML = `Average: ${response.data.average}`
                             getRating()
@@ -102,10 +102,10 @@ function giveRating () {
         }, false)
         three[i].addEventListener("mouseleave", getRating)
         three[i].addEventListener("click", function( event ) {
-            let uri = 'https://wozniacki-booksapp.herokuapp.com/books/addReview?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+')+'&review='+3;
+            let uri = '/books/addReview?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+')+'&review='+3;
             axios.post(uri)
                 .then(function (response) {
-                    axios.get('https://wozniacki-booksapp.herokuapp.com/books?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+'))
+                    axios.get('/books?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+'))
                         .then(function( response) {
                             document.getElementById(`bookRating${i+1}`).innerHTML = `Average: ${response.data.average}`
                             getRating()
@@ -122,10 +122,10 @@ function giveRating () {
         }, false)
         four[i].addEventListener("mouseleave", getRating)
         four[i].addEventListener("click", function( event ) {
-            let uri = 'https://wozniacki-booksapp.herokuapp.com/books/addReview?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+')+'&review='+4;
+            let uri = '/books/addReview?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+')+'&review='+4;
             axios.post(uri)
                 .then(function (response) {
-                    axios.get('https://wozniacki-booksapp.herokuapp.com/books?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+'))
+                    axios.get('/books?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+'))
                         .then(function( response) {
                             document.getElementById(`bookRating${i+1}`).innerHTML = `Average: ${response.data.average}`
                             getRating()
@@ -142,10 +142,10 @@ function giveRating () {
         }, false)
         five[i].addEventListener("mouseleave", getRating)
         five[i].addEventListener("click", function( event ) {
-            let uri = 'https://wozniacki-booksapp.herokuapp.com/books/addReview?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+')+'&review='+5;
+            let uri = '/books/addReview?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+')+'&review='+5;
             axios.post(uri)
                 .then(function (response) {
-                    axios.get('https://wozniacki-booksapp.herokuapp.com/books?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+'))
+                    axios.get('/books?name='+String(document.getElementById(`bookName${i+1}`).innerHTML).replace(' ','+'))
                         .then(function( response) {
                             document.getElementById(`bookRating${i+1}`).innerHTML = `Average: ${response.data.average}`
                             getRating()
