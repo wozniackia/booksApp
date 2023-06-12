@@ -1,19 +1,16 @@
-import Icon from "./Icon";
-import "./css/bootstrap.min.css"
-import "./css/album.css";
-import "./css/style.css";
+import Icon from "./svg/Logo";
+import DarkTheme from "./svg/DarkTheme";
+import { Outlet, Link } from "react-router-dom";
+import {isValid} from "../globals"
+import React, { useEffect } from "react";
 
 function Navbar() {
+  useEffect(() => {
+    isValid()
+  })
   return (
     <div className="Navbar">
-      <link
-        href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap"
-        rel="stylesheet"
-      />
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
-      />
+      
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <a className="navbar-brand" href="./">
@@ -33,29 +30,19 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="./">
-                  Home
-                </a>
+                <Link className="nav-link" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="./browse">
-                  Browse books
-                </a>
+                <Link className="nav-link" to="./browse">Browse books</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="./add">
-                  Add books
-                </a>
+                <Link className="nav-link" to="./add">Add books</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="./search">
-                  Search
-                </a>
+                <Link className="nav-link" to="./search">Search</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="./signin" id="signin-link">
-                  Sign in
-                </a>
+                <Link className="nav-link" to="./signin" id="signin-link">Sign in</Link>
               </li>
             </ul>
           </div>
@@ -66,32 +53,18 @@ function Navbar() {
                 darkMode();
             }}
           >
-            <i className="bi bi-lightbulb-fill"></i>
+            <DarkTheme />
           </button>
         </div>
       </nav>
-      <script
-        src="https://kit.fontawesome.com/28100bcb2a.js"
-        crossOrigin="anonymous"
-      ></script>
-      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossOrigin="anonymous"
-      ></script>
 
-      <script src="./scripts/index.js"></script>
-      <script src="./scripts/loading.js"></script>
-      <script src="./scripts/get-rating.js"></script>
-      <script src="./scripts/dark-mode.js"></script>
-      <script src="./scripts/validate-login.js"></script>
+      <Outlet />
     </div>
   );
 }
 
 function toggleLocalStorage() {
-    if(localStorage.getItem('darkmode') == 'true') {
+    if(localStorage.getItem('darkmode') === 'true') {
         localStorage.setItem('darkmode', 'false')
     } else {
         localStorage.setItem('darkmode', 'true')
@@ -102,7 +75,7 @@ function darkMode() {
     let lightElements = ['bg-light', 'navbar-light', 'btn-light', 'text-dark']
     let darkElements = ['bg-dark', 'navbar-dark', 'btn-dark', 'text-light']
 
-    if(localStorage.getItem('darkmode') == 'true') {
+    if(localStorage.getItem('darkmode') === 'true') {
         for(let i = 0; i < 4; i++) {
             let dark = document.getElementsByClassName(lightElements[i])
             for(const element of dark) {

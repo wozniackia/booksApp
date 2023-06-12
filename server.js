@@ -15,29 +15,6 @@ app.use(express.json())
 app.use('/books', booksRouter)
 app.use('/auth', authRouter)
 
-app.get('/', (req, res) => {
-  res.render('index')
-});
-app.get('/browse', (req, res) => {
-  res.render('browse')
-});
-app.get('/add', (req, res) => {
-  res.render('add')
-});
-app.get('/search', (req, res) => {
-  res.render('search')
-});
-app.get('/signin', (req, res) => {
-  res.render('signin')
-});
-app.get('/signup', (req, res) => {
-  res.render('signup')
-});
-
-app.get('/*', (req, res) => {
-  res.render('404')
-});
-
 dbo.connectToServer(function (err) {
     if (err) {
       console.error(err)
