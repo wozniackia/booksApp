@@ -7,6 +7,7 @@ function TopRated() {
   useEffect(() => {
     getBooks();
     setTimeout(getRating, 1000);
+    giveRating();
   });
   return (
     <div className="album py-5 bg-light">
@@ -46,11 +47,51 @@ function getRating() {
       .get("http://localhost:4000/books?name=" + names[i].innerHTML)
       .then(function (response) {
         let avg = Math.floor(response.data.average);
+        avg = avg > 5 ? 5 : avg
         for (let j = 0; j < avg; j++) {
           stars[j].firstChild.style.fill = "#FFD700";
         }
       });
   }
+}
+
+function giveRating() {
+  const containers = document.getElementsByClassName("text-muted");
+
+  for (let i = 0; i < containers.length; i++) {
+    const stars = containers[i].getElementsByClassName("star-icon");
+    for (let j = 0; j < stars.length; j++) {
+      stars[j].addEventListener("mouseenter", () => {
+        for (let k = 0; k <= j; k++) {
+          stars[k].style.fill = "#FFD700";
+        }
+        for (let k = j+1; k < 5; k++) {
+          stars[k].style.fill = "#6c757d";
+        }
+      });
+      stars[j].addEventListener("mouseleave", () => {
+        getRating();
+      });
+      stars[j].removeEventListener("click", (e) => {
+        setRating(j);
+      });
+      stars[j].addEventListener("click", (e) => {
+        setRating(i, j);
+      });
+    }
+  }
+}
+
+function setRating(i, j) {
+  let names = document.getElementsByClassName('card-text');
+  let uri = `http://localhost:4000/books/addReview?name=${names[i].innerHTML}&review=${j}`
+  axios.post(uri).then(function (response) {
+    axios
+      .get(`http://localhost:4000/books?name=${names[i].innerHTML}`)
+      .then(function (response) {
+        window.location.reload()
+      });
+  });
 }
 
 export default TopRated;
